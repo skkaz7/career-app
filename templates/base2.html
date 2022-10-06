@@ -241,17 +241,21 @@
                             </div>
 
                             {% if task.slug %}
-                                <div>
-                                    <p><strong>Ostanio dodany task</strong></p>
-                                    <p><strong><a style="color: mediumpurple"
-                                                  href="{% url 'task_details' task.slug %}">{{ task.name }}</a></strong>
+                                <div class="alert-item alert-info">
+                                    <div>
+                                        Ostanio dodany task<br>
+                                        <a style="color: mediumpurple"
+                                           href="{% url 'task_details' task.slug %}"><strong>{{ task.name }}</strong></a><br>
                                         {% if task.deadline.month < 10 %}
-                                            <p>Deadline
-                                                ➡ {{ task.deadline.day }}.0{{ task.deadline.month }}.{{ task.deadline.year }}</p>
+                                            Deadline
+                                            ➡ {{ task.deadline.day }}.0{{ task.deadline.month }}.
+                                            {{ task.deadline.year }}
                                         {% else %}
-                                            <p>Deadline
-                                                => {{ task.deadline.day }}.{{ task.deadline.month }}.{{ task.deadline.year }}</p>
+                                            Deadline
+                                            => {{ task.deadline.day }}.{{ task.deadline.month }}.
+                                            {{ task.deadline.year }}
                                         {% endif %}
+                                    </div>
                                 </div>
                                 <br>
                             {% endif %}
@@ -261,53 +265,43 @@
                                 <span class="font-weight-bold">Liczba projektów: {{ project_counter }}</span>
                             </div>
 
-                            <div>
-                                <p><strong>Ostanio dodany projekt</strong></p>
-                                <div style="background-color: silver; border-radius: 10px">
-                                    <p>{{ forloop.counter }}
-                                        <strong>{{ project.name }}</strong></p>
-                                    <p>{{ project.description }}</p>
-                                    <p>Tasks:</p>
-                                    <div>
-                                        {% for task in project.task_set.all %}
-                                            <p>{{ forloop.counter }}) <a style="color: mediumpurple;"
-                                                                         href="{% url 'task_details' task.slug %}">{{ task.name }}</a>
-                                            </p>
-                                        {% endfor %}
-                                    </div>
+
+                            <div class="alert-item alert-light">
+                                <div>
+                                    Ostatnio dodany projekt<br>
+                                    <strong>{{ project.name }}</strong> - {{ project.description }}<br>
+                                    Przypisane zadania:<br>
+                                    {% for task in project.task_set.all %}
+                                        {{ forloop.counter }}) <a style="color: mediumpurple;"
+                                                                  href="{% url 'task_details' task.slug %}">{{ task.name }}</a>
+                                    {% endfor %}
                                 </div>
                             </div>
                             <br>
 
 
                             <div class="alert-item alert-info">
-                                <i class="fas icon-circle fa-calculator"></i>
-                                <span class="font-weight-bold">Liczba aktualnych ofert pracy: {{ job_offer_counter }}</span>
+                                <i class="fas icon-circle fa-calculator" style="color: black"></i>
+                                <span class="font-weight-bold"
+                                      style="color: black">Liczba aktualnych ofert pracy: {{ job_offer_counter }}</span>
                             </div>
 
-                            <div>
-                                <p><strong>Ostanio dodana oferta pracy</strong></p>
-
-                                <h1>{{ job_offer.company }}</h1>
-                                <h3>{{ job_offer.position }}</h3>
-                                <p>City: {{ job_offer.city }}</p>
-                                {% if job_offer.received.month < 10 %}
-                                    <p>
-                                        Received: {{ job_offer.received.day }}.0{{ job_offer.received.month }}.{{ job_offer.received.year }}
-                                        r.</p>
-                                {% else %}
-                                    <p>
-                                        Received: {{ job_offer.received.day }}.{{ job_offer.received.month }}.{{ job_offer.received.year }}
-                                        r.</p>
-                                {% endif %}
-                                <p>min salary: {{ job_offer.min_salary }} zł</p>
-                                <p>max salary: {{ job_offer.max_salary }} zł</p>
-                                <p>Type of contract: {{ job_offer.get_type_of_contract_display }}</p>
-                                <p>Website: <a target="_blank" rel="noopener noreferrer"
-                                               href="{{ job_offer.website.link }}">{{ job_offer.website.link }}</a></p>
-                                <p>Benefits: {{ job_offer.benefits }}</p>
-                                <p>Requirements: {{ job_offer.requirements }}</p>
-
+                            <div class="alert-item alert-info">
+                                <div style="color: black">
+                                    Ostatnio dodana oferta pracy<br>
+                                    {{ job_offer.company }} - {{ job_offer.position }} - {{ job_offer.city }}<br>
+                                    {% if job_offer.received.month < 10 %}
+                                        Otrzymano: {{ job_offer.received.day }}.0{{ job_offer.received.month }}.
+                                        {{ job_offer.received.year }}r.<br>
+                                    {% else %}
+                                        Otrzymano: {{ job_offer.received.day }}.{{ job_offer.received.month }}.
+                                        {{ job_offer.received.year }}r.<br>
+                                    {% endif %}
+                                    Stawka: {{ job_offer.min_salary }} zł - {{ job_offer.max_salary }} zł<br>
+                                    Forma zatrudnienia: {{ job_offer.get_type_of_contract_display }}<br>
+                                    Więcej informacji: <a target="_blank" rel="noopener noreferrer"
+                                                          href="{{ job_offer.website.link }}">{{ job_offer.website.link }}</a>
+                                </div>
                             </div>
 
 
