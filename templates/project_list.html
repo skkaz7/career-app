@@ -2,27 +2,21 @@
 {% block title %}Project list{% endblock %}
 {% block content %}
 
-    <div style="display:inline-block; float: right">
-        <button onclick="history.back()" class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4">Powrót</button>
-    </div>
+    {#    <div style="display:inline-block; float: right">#}
+    {#        <button onclick="history.back()" class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4">Powrót</button>#}
+    {#    </div>#}
     {% if object_list %}
         {% for project in object_list %}
-            <div style="background-color: silver; border-radius: 10px">
-                <p>{{ forloop.counter }}
-                    <strong>{{ project.name }}</strong></p>
-                <p>{{ project.description }}</p>
-                <p>Tasks:</p>
+            <div class="alert-item alert-light" style="color: goldenrod">
                 <div>
+                    {{ forloop.counter }}) {{ project.name }}<br>
+                    {{ project.description }}<br>
+                    Przypisane zadania:<br>
                     {% for task in project.task_set.all %}
-                        <p>{{ forloop.counter }}) <a style="color: mediumpurple;"
-                                                     href="{% url 'task_details' task.slug %}">{{ task.name }}</a></p>
+                        {{ forloop.counter }}) <a style="color: mediumpurple;"
+                                                  href="{% url 'task_details' task.slug %}">{{ task.name }}</a><br>
                     {% endfor %}
                 </div>
-                {#                        {% if project.created.month < 10 %}#}
-                {#                            <p>{{ project.created.day }}.0{{ project.created.month }}.{{ project.created.year }}</p>#}
-                {#                        {% else %}#}
-                {#                            <p>{{ project.created.day }}.{{ project.created.month }}.{{ project.created.year }}</p>#}
-                {#                        {% endif %}#}
             </div>
         {% endfor %}
     {% endif %}
