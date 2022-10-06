@@ -2,24 +2,6 @@
 {% block title %}Task list{% endblock %}
 {% block content %}
 
-    {#    <div style="display:inline-block; float: right">#}
-    {#        <button onclick="history.back()" class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4">Powrót</button>#}
-    {#    </div>#}
-
-    {#    <h3>Tasks sorted by deadline:</h3>#}
-    {#    {% for task in object_list|dictsort:"deadline" %}#}
-    {#        <div class="list-group">#}
-    {#            <p>{{ forloop.counter }}#}
-    {#                <strong><a style="color: mediumpurple"#}
-    {#                           href="{% url 'task_details' task.slug %}">{{ task.name }}</a></strong>#}
-    {#                {% if task.deadline.month < 10 %}#}
-    {#                    {{ task.deadline.day }}.0{{ task.deadline.month }}.{{ task.deadline.year }}#}
-    {#                {% else %}#}
-    {#                    {{ task.deadline.day }}.{{ task.deadline.month }}.{{ task.deadline.year }}#}
-    {#                {% endif %}#}
-    {#            </p>#}
-    {#        </div>#}
-    {#    {% endfor %}#}
     {% if object_list %}
         <div style="display:flex;justify-content: end">
             <div style="background-color: indianred; border-radius: 10px;width: 50%">
@@ -90,8 +72,9 @@
         </table>
         <h6>*Tasks sorted by deadline</h6><br>
 
-        <div style="display:inline-block; float: right">
-            <button onclick="history.back()" class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4">Powrót</button>
-        </div>
+        {#        <div style="display:inline-block; float: right">#}
+        {#            <button onclick="history.back()" class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4">Powrót</button>#}
+        {#        </div>#}
+
     {% endif %}
 {% endblock %}
