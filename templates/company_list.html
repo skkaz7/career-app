@@ -1,0 +1,19 @@
+{% extends 'base2.html' %}
+{% block title %}Company list{% endblock %}
+{% block content %}
+
+    <div style="display:inline-block; float: right">
+        <button onclick="history.back()" class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4">Powrót</button>
+    </div>
+    {% if object_list %}
+        {% for company in object_list %}
+            <div style="background-color: navajowhite; border-radius: 10px">
+                <p>{{ forloop.counter }}
+                    <strong>{{ company.name }}</strong></p>
+                <p>{{ company.description }}</p>
+                <p>{{ company.is_interested }}</p>
+
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

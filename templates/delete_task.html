@@ -1,0 +1,17 @@
+{% extends 'base2.html' %}
+{% block title %}Delete task{% endblock %}
+{% block content %}
+    <div style="display:inline-block; float: right">
+        <button onclick="history.back()" class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4">Powrót</button>
+    </div>
+
+    <div class="form-group" style="display: flex; justify-content: center">
+
+        <form method="post">
+            <p>Czy na pewno chcesz usunąc taska o nazwie {{ task.name }}?</p>
+            {% csrf_token %}
+            <input type="submit" value="Zatwierdź" class="btn btn-success">
+        </form>
+    </div>
+
+{% endblock %}

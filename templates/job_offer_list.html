@@ -1,0 +1,169 @@
+{% extends 'base2.html' %}
+{% block title %}Job offer list{% endblock %}
+{% block content %}
+
+    {#    <div style="display:inline-block; float: right">#}
+    {#        <button onclick="history.back()" class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4">Powrót</button>#}
+    {#    </div>#}
+
+    {#    <style>#}
+    {#        table, tr, th, td {#}
+    {#            border: 2px solid black;#}
+    {#            text-align: center;#}
+    {#        }#}
+    {#    </style>#}
+    {##}
+    {#    <table class="table-bordered" style="width: 50%;height: 50%">#}
+    {#        <tr>#}
+    {#            <th>Lp</th>#}
+    {#            <th>Company</th>#}
+    {#            <th>Position</th>#}
+    {##}
+    {#        </tr>#}
+    {#        {% for job_offer in object_list|dictsort:"received" %}#}
+    {#            <tr>#}
+    {#                <td>{{ forloop.counter }}</td>#}
+    {#                <td>{{ job_offer.company }}</td>#}
+    {#                <td>{{ job_offer.position }}</td>#}
+    {#            </tr>#}
+    {#        {% endfor %}#}
+    {#    </table>#}
+    {#    <h6>*Job offers sorted by received date</h6>#}
+
+    {% if object_list %}
+        <style type="text/css">
+            .tg {
+                border-collapse: collapse;
+                border-color: #aaa;
+                border-spacing: 0;
+                width: 100%;
+            }
+
+            .tg td {
+                background-color: #fff;
+                border-color: #aaa;
+                border-style: solid;
+                border-width: 1px;
+                color: #333;
+                font-family: Arial, sans-serif;
+                font-size: 14px;
+                overflow: hidden;
+                padding: 10px 5px;
+                word-break: normal;
+            }
+
+            .tg th {
+                background-color: #f38630;
+                border-color: #aaa;
+                border-style: solid;
+                border-width: 1px;
+                color: #fff;
+                font-family: Arial, sans-serif;
+                font-size: 14px;
+                font-weight: normal;
+                overflow: hidden;
+                padding: 10px 5px;
+                word-break: normal;
+            }
+
+            .tg .tg-0pky {
+                border-color: black;
+                text-align: center;
+                vertical-align: center;
+            }
+        </style>
+
+
+        <h3>Current offers</h3>
+        <table class="tg">
+            <thead>
+            <tr>
+                <th style="background-color: green" class="tg-0pky">LP</th>
+                <th style="background-color: green" class="tg-0pky">Company</th>
+                <th style="background-color: green" class="tg-0pky">Position</th>
+                <th style="background-color: green" class="tg-0pky">City</th>
+                <th style="background-color: green" class="tg-0pky">Received</th>
+                <th style="background-color: green" class="tg-0pky">min salary</th>
+                <th style="background-color: green" class="tg-0pky">max salary</th>
+                <th style="background-color: green" class="tg-0pky">Type of contract</th>
+                <th style="background-color: green" class="tg-0pky">Website</th>
+                <th style="background-color: green" class="tg-0pky">Benefits</th>
+                <th style="background-color: green" class="tg-0pky">Requirements</th>
+            </tr>
+            </thead>
+            {% for job_offer in object_list|dictsortreversed:"received" %}
+                {% if job_offer.is_active %}
+                    <tbody>
+                    <tr>
+                        <td class="tg-0pky">{{ forloop.counter }}</td>
+                        <td class="tg-0pky"><a
+                                href="{% url 'company_details' job_offer.company.pk %}">{{ job_offer.company }}</a></td>
+                        <td class="tg-0pky">{{ job_offer.position }}</td>
+                        <td class="tg-0pky">{{ job_offer.city }}</td>
+                        <td class="tg-0pky">{{ job_offer.received }}</td>
+                        <td class="tg-0pky">{{ job_offer.min_salary }}</td>
+                        <td class="tg-0pky">{{ job_offer.max_salary }}</td>
+                        <td class="tg-0pky">{{ job_offer.get_type_of_contract_display }}</td>
+                        <td class="tg-0pky"><a target="_blank"
+                                               href="{{ job_offer.website.link }}">{{ job_offer.website.link }}</a></td>
+                        <td class="tg-0pky">{{ job_offer.benefits }}</td>
+                        <td class="tg-0pky">{{ job_offer.requirements }}</td>
+                        <td style="background-color: hsla(120, 60%, 70%, 0.0); border-style: none"><a
+                                href="{% url 'job_offer_update' job_offer.pk %}"
+                                class="btn btn-warning rounded-1 text-light m-1">Edytuj</a></td>
+                    </tr>
+                    </tbody>
+                {% endif %}
+            {% endfor %}
+        </table>
+        <h6>*Job offers sorted by received date</h6><br>
+
+
+
+
+
+        <h3>Expired offers</h3>
+        <table class="tg">
+            <thead>
+            <tr>
+                <th style="background-color: darkred" class="tg-0pky">LP</th>
+                <th style="background-color: darkred" class="tg-0pky">Company</th>
+                <th style="background-color: darkred" class="tg-0pky">Position</th>
+                <th style="background-color: darkred" class="tg-0pky">City</th>
+                <th style="background-color: darkred" class="tg-0pky">Received</th>
+                <th style="background-color: darkred" class="tg-0pky">min salary</th>
+                <th style="background-color: darkred" class="tg-0pky">max salary</th>
+                <th style="background-color: darkred" class="tg-0pky">Type of contract</th>
+                <th style="background-color: darkred" class="tg-0pky">Website</th>
+                <th style="background-color: darkred" class="tg-0pky">Benefits</th>
+                <th style="background-color: darkred" class="tg-0pky">Requirements</th>
+            </tr>
+            </thead>
+            {% for job_offer in object_list|dictsortreversed:"received" %}
+                {% if not job_offer.is_active %}
+                    <tbody>
+                    <tr>
+                        <td class="tg-0pky">{{ forloop.counter }}</td>
+                        <td class="tg-0pky"><a
+                                href="{% url 'company_details' job_offer.company.pk %}">{{ job_offer.company }}</a></td>
+                        <td class="tg-0pky">{{ job_offer.position }}</td>
+                        <td class="tg-0pky">{{ job_offer.city }}</td>
+                        <td class="tg-0pky">{{ job_offer.received }}</td>
+                        <td class="tg-0pky">{{ job_offer.min_salary }}</td>
+                        <td class="tg-0pky">{{ job_offer.max_salary }}</td>
+                        <td class="tg-0pky">{{ job_offer.get_type_of_contract_display }}</td>
+                        <td class="tg-0pky"><a target="_blank"
+                                               href="{{ job_offer.website.link }}">{{ job_offer.website.link }}</a></td>
+                        <td class="tg-0pky">{{ job_offer.benefits }}</td>
+                        <td class="tg-0pky">{{ job_offer.requirements }}</td>
+                        <td style="background-color: hsla(120, 60%, 70%, 0.0); border-style: none"><a
+                                href="{% url 'job_offer_update' job_offer.pk %}"
+                                class="btn btn-warning rounded-1 text-light m-1">Edytuj</a></td>
+                    </tr>
+                    </tbody>
+                {% endif %}
+            {% endfor %}
+        </table>
+        <h6>*Job offers sorted by received date</h6>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,8 @@
+{% load crispy_forms_filters %}
+<div class="form-group" style="display: flex; justify-content: center">
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit" value="Zatwierdź" class="btn btn-success">
+    </form>
+</div>

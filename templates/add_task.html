@@ -1,0 +1,11 @@
+{% extends 'base2.html' %}
+{% block title %}Add Task{% endblock %}
+{% block content %}
+
+    <div style="display:inline-block; float: right"><button onclick="history.back()" class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4">Powrót</button></div>
+    <a href="{% url 'add_website' %}">Add website</a><br>
+    <a href="{% url 'add_project' %}">Add project</a><br>
+    <a href="{% url 'add_status' %}">Add status</a>
+    {% include 'form.html' %}
+
+{% endblock %}

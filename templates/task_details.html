@@ -1,0 +1,35 @@
+{% extends 'base2.html' %}
+{% block title %}Task details{% endblock %}
+{% block content %}
+
+
+    <div style="display:inline-block; float: right">
+        <a href="{% url 'task_delete' task.slug %}" class="btn btn-danger rounded-1 text-light m-1">Usuń</a>
+        <a href="{% url 'task_update' task.slug %}" class="btn btn-warning rounded-1 text-light m-1">Edytuj</a>
+        <button onclick="history.back()" class="btn btn-info rounded-1 text-light m-1">Powrót</button>
+        {#        <button onclick="history.back()" class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4">Powrót</button>#}
+    </div>
+
+    <h1>{{ object.name }}</h1>
+    <h3>{{ object.description }}</h3>
+    <p>Estimated time: {{ object.estimated_time }} minutes</p>
+    <p>Created: {{ object.created }}</p>
+    <p>Updated: {{ object.updated }}</p>
+    <p>Difficulty: {{ object.get_difficulty_display }}</p>
+    <p>Category: {{ object.category }}</p>
+    <p>Deadline: {{ object.deadline.day }}.{{ object.deadline.month }}.{{ object.deadline.year }}</p>
+    <p>Status: {{ object.status }}</p>
+    <p>Website: {{ object.website }}</p>
+    <p>Project: {{ object.project }}</p><br>
+
+    <p>Subtasks:</p>
+    {% for task in object.task_set.all %}
+        <p>{{ forloop.counter }}) <a href="{% url 'task_details' task.slug %}">{{ task.name }}</a></p>
+    {% endfor %}
+
+    {% if object.parent %}
+        <p style="font-style: italic">Parent task: <a
+                href="{% url 'task_details' task.parent.slug %}">{{ object.parent }}</a></p>
+    {% endif %}
+
+{% endblock %}

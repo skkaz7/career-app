@@ -1,0 +1,97 @@
+{% extends 'base2.html' %}
+{% block title %}Task list{% endblock %}
+{% block content %}
+
+    {#    <div style="display:inline-block; float: right">#}
+    {#        <button onclick="history.back()" class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4">Powrót</button>#}
+    {#    </div>#}
+
+    {#    <h3>Tasks sorted by deadline:</h3>#}
+    {#    {% for task in object_list|dictsort:"deadline" %}#}
+    {#        <div class="list-group">#}
+    {#            <p>{{ forloop.counter }}#}
+    {#                <strong><a style="color: mediumpurple"#}
+    {#                           href="{% url 'task_details' task.slug %}">{{ task.name }}</a></strong>#}
+    {#                {% if task.deadline.month < 10 %}#}
+    {#                    {{ task.deadline.day }}.0{{ task.deadline.month }}.{{ task.deadline.year }}#}
+    {#                {% else %}#}
+    {#                    {{ task.deadline.day }}.{{ task.deadline.month }}.{{ task.deadline.year }}#}
+    {#                {% endif %}#}
+    {#            </p>#}
+    {#        </div>#}
+    {#    {% endfor %}#}
+    {% if object_list %}
+        <div style="display:flex;justify-content: end">
+            <div style="background-color: indianred; border-radius: 10px;width: 50%">
+                <h3>'To do'</h3>
+                {% for task in object_list %}
+
+                    {% if task.status.status_name == 'To do' and not task.parent %}
+                        <p> 👉 <a style="color: inherit;font-style: italic"
+                                 href="{% url 'task_details' task.slug %}">{{ task.name }}</a></p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <div style="background-color: yellow; border-radius: 10px;width: 50%">
+                <h3>'In progress'</h3>
+                {% for task in object_list %}
+
+                    {% if task.status.status_name == 'In progress' and not task.parent %}
+                        <p> 👉 <a style="color: inherit;font-style: italic"
+                                 href="{% url 'task_details' task.slug %}">{{ task.name }}</a></p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+
+            <div style="background-color: lightgreen; border-radius: 10px;width: 50%">
+                <h3>'Done'</h3>
+                {% for task in object_list %}
+
+                    {% if task.status.status_name == 'Done' and not task.parent %}
+                        <p> 👉 <a style="color: inherit;font-style: italic"
+                                 href="{% url 'task_details' task.slug %}">{{ task.name }}</a></p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div><br>
+
+        <style>
+            tr {
+                border: 2px solid black;
+                text-align: center;
+            }
+        </style>
+
+        <table class="table-bordered" style="width: 100%;height: auto">
+            <tr>
+                <th style="border: 2px solid black">Lp</th>
+                <th style="border: 2px solid black">Name</th>
+                <th>Deadline</th>
+
+            </tr>
+            {% for task in object_list|dictsort:"deadline" %}
+                <tr>
+                    <td style="border: 2px solid black">{{ forloop.counter }}</td>
+                    <td style="border: 2px solid black"><strong><a style="color: mediumpurple"
+                                                                   href="{% url 'task_details' task.slug %}">{{ task.name }}</a></strong>
+                    </td>
+
+
+
+                    {% if task.deadline.month < 10 %}
+                        <td>{{ task.deadline.day }}.0{{ task.deadline.month }}.{{ task.deadline.year }}</td>
+                    {% else %}
+                        <td>{{ task.deadline.day }}.{{ task.deadline.month }}.{{ task.deadline.year }}</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
+        <h6>*Tasks sorted by deadline</h6><br>
+
+        <div style="display:inline-block; float: right">
+            <button onclick="history.back()" class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4">Powrót</button>
+        </div>
+    {% endif %}
+{% endblock %}

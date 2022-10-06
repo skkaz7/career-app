@@ -1,0 +1,13 @@
+{% extends 'base2.html' %}
+{% block title %}Company details{% endblock %}
+{% block content %}
+
+
+    <div style="display:inline-block; float: right">
+        <button onclick="history.back()" class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4">Powrót</button>
+    </div>
+
+    <h1>{{ object.name }}</h1>
+    <h4>{{ object.description }}</h4>
+
+{% endblock %}
