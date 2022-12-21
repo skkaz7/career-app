@@ -1,6 +1,6 @@
 # career-app
 > ### I wanted to create an app that would make it easy to make progress and track achievements so far on a new career path.
-> Live demo [_here_](https://www.example.com). <!-- If you have the project hosted somewhere, include the link here. -->
+> <!-- Live demo [_here_](https://www.example.com). If you have the project hosted somewhere, include the link here. -->
 
 ## Table of Contents
 * [General Info](#general-information)
