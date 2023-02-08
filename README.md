@@ -70,7 +70,6 @@ To do:
 
 
 ## Acknowledgements
-Give credit here.
 - The project is my own initiative. It was inspired by the need to keep track of my learning progress.
 - Many thanks to my mentor and my course colleagues!
 
